@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Save user</title>
+	<title>Register user</title>
 </head>
 <body>
 <form action="/register_user.php" method="post">

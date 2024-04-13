@@ -19,7 +19,7 @@ class UserTable
 				':last_name' => $user->getLastName(),
 				':middle_name' => $user->getMiddleName(),
 				':gender' => $user->getGender(),
-				':birth_date' => $this->convertDataTimeToString($user->getBirthDate()),
+				':birth_date' => Utils::convertDataTimeToString($user->getBirthDate()),
 				':email' => $user->getEmail(),
 				':phone' => $user->getPhone(),
 				':avatar_path' => $user->getAvatarPath()
@@ -57,10 +57,5 @@ class UserTable
 			$row['phone'] ?? null,
 			$row['avatar_path'] ?? null
 		);
-	}
-
-	private function convertDataTimeToString(?DateTimeImmutable $date): ?string
-	{
-		return $date?->format(self::MYSQL_DATETIME_FORMAT);
 	}
 }
