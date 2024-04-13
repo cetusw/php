@@ -32,15 +32,18 @@ class UserTable
 
 	public function findUserInDatabase(int $id): ?User
 	{
-		$query = "SELECT user_id, first_name, last_name, middle_name, gender, birth_date, email, phone, avatar_path
+		try {
+			$query = "SELECT user_id, first_name, last_name, middle_name, gender, birth_date, email, phone, avatar_path
         FROM user WHERE user_id = $id";
 
-		$statement = $this->connection->query($query);
-		if ($row = $statement->fetch(PDO::FETCH_ASSOC))
-		{
-			return $this->createUserFromRow($row);
+			$statement = $this->connection->query($query);
+			if ($row = $statement->fetch(PDO::FETCH_ASSOC))
+			{
+				return $this->createUserFromRow($row);
+			}
+		} catch (PDOException $e) {
+			throw new RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
 		}
-
 		return null;
 	}
 

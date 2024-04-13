@@ -2,28 +2,20 @@
 
 class User
 {
-	private ?int $id;
-	private string $firstName;
-	private string $lastName;
-	private ?string $middleName;
-	private string $gender;
-	private ?DateTimeImmutable $birthDate;
-	private string $email;
-	private ?string $phone;
-	private ?string $avatarPath;
-
-	public function __construct(?int $id, string $firstName, string $lastName, ?string $middleName, string $gender, ?DateTimeImmutable $birthDate, string $email, ?string $phone, ?string $avatarPath)
+	public function __construct(
+		private ?int $id,
+		private string $firstName,
+		private string $lastName,
+		private ?string $middleName,
+		private string $gender,
+		private DateTimeImmutable $birthDate,
+		private string $email,
+		private ?string $phone,
+		private ?string $avatarPath
+	)
 	{
-		$this->id = $id;
-		$this->firstName = $firstName;
-		$this->lastName = $lastName;
-		$this->middleName = $middleName;
-		$this->gender = $gender;
-		$this->birthDate = $birthDate;
-		$this->email = $email;
-		$this->phone = $phone;
-		$this->avatarPath = $avatarPath;
 	}
+
 	public function getId(): ?int
 	{
 		return $this->id;
@@ -49,7 +41,7 @@ class User
 		return $this->gender;
 	}
 
-	public function getBirthDate(): ?DateTimeImmutable
+	public function getBirthDate(): DateTimeImmutable
 	{
 		return $this->birthDate;
 	}

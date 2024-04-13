@@ -28,12 +28,12 @@ class UserController
 			null,
 			$data['first_name'],
 			$data['last_name'],
-			$data['middle_name'] ?? null,
+			empty($data['middle_name']) ? null : $data['middle_name'],
 			$data['gender'],
 			$birthDate,
 			$data['email'],
-			empty($data['phone']) ? null: $data['phone'],
-			$data['avatar_path'] ?? null
+			empty($data['phone']) ? null : $data['phone'],
+			empty($data['avatar_path']) ? null : $data['avatar_path']
 		);
 
 		$userId = $this->table->saveUserToDatabase($user);
