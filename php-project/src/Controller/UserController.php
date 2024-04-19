@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../Model/User.php';
-require_once __DIR__ . '/../Model/UserTable.php';
-require_once __DIR__ . '/../Infrastructure/ConnectionProvider.php';
-require_once __DIR__ . '/../Infrastructure/Utils.php';
+namespace App\Controller;
+
+use App\Infrastructure\ConnectionProvider;
+use App\Infrastructure\Utils;
+use App\Model\User;
+use App\Model\UserTable;
+
 class UserController
 {
 	private const DATE_TIME_FORMAT = 'Y-m-d';
@@ -37,6 +40,7 @@ class UserController
 		);
 
 		$userId = $this->table->saveUserToDatabase($user);
+		$this->saveAvatar($userId);
 
 		$redirectUrl = "/show_user.php?user_id=$userId";
 		header('Location: ' . $redirectUrl, true, 303);
@@ -47,5 +51,26 @@ class UserController
 	{
 		$user = $this->table->findUserInDatabase($id);
 		require __DIR__ . '/../View/show_user_form.php';
+	}
+
+	public function saveAvatar($id): string
+	{
+		if ($_FILES['upfile']['error'] == 0) {
+			$fileName = $_FILES['upfile']['name'];
+			$fileType = $_FILES['upfile']['type'];
+			if (!in_array($fileType, ['image/jpeg', 'image/png', 'image/gif'])) {
+				echo "Недопустимый тип файла";
+				exit;
+			}
+			$newFileName = $id . "." . pathinfo($fileName, PATHINFO_EXTENSION);
+			if (move_uploaded_file($fileName, "uploads/" . $newFileName)) {
+				echo "Файл успешно загружен";
+				return $newFileName;
+			} else {
+				echo "Ошибка при загрузке файла";
+				exit;
+			}
+		}
+		return false;
 	}
 }

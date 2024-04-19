@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 class User
 {
 	public function __construct(
@@ -8,7 +10,7 @@ class User
 		private string $lastName,
 		private ?string $middleName,
 		private string $gender,
-		private DateTimeImmutable $birthDate,
+		private \DateTimeImmutable $birthDate,
 		private string $email,
 		private ?string $phone,
 		private ?string $avatarPath
@@ -41,7 +43,7 @@ class User
 		return $this->gender;
 	}
 
-	public function getBirthDate(): DateTimeImmutable
+	public function getBirthDate(): \DateTimeImmutable
 	{
 		return $this->birthDate;
 	}

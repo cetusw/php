@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Infrastructure;
+
 class Config
 {
   public static function getDatabaseDsn(): string

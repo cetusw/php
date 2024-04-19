@@ -1,11 +1,13 @@
 <?php
 
-require_once __DIR__ . '/User.php';
-require_once __DIR__ . '/../Infrastructure/Utils.php';
+namespace App\Model;
+
+use App\Infrastructure\Utils;
+
 class UserTable
 {
 	private const MYSQL_DATETIME_FORMAT = 'Y-m-d H:i:s';
-	public function __construct(private readonly PDO $connection)
+	public function __construct(private readonly \PDO $connection)
 	{
 	}
 	public function saveUserToDatabase(User $user): int
@@ -24,8 +26,8 @@ class UserTable
 				':phone' => $user->getPhone(),
 				':avatar_path' => $user->getAvatarPath()
 			]);
-		} catch (PDOException $e) {
-		  throw new RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+		} catch (\PDOException $e) {
+		  throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
 		}
 		return (int)$this->connection->lastInsertId();
 	}
@@ -37,12 +39,12 @@ class UserTable
         FROM user WHERE user_id = $id";
 
 			$statement = $this->connection->query($query);
-			if ($row = $statement->fetch(PDO::FETCH_ASSOC))
+			if ($row = $statement->fetch(\PDO::FETCH_ASSOC))
 			{
 				return $this->createUserFromRow($row);
 			}
-		} catch (PDOException $e) {
-			throw new RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
 		}
 		return null;
 	}

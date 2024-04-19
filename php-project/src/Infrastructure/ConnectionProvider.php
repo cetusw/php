@@ -1,10 +1,11 @@
 <?php
 
-require_once __DIR__ . '/Config.php';
+namespace App\Infrastructure;
+
 class ConnectionProvider
 {
-	public static function connectDatabase(): PDO
+	public static function connectDatabase(): \PDO
 	{
-		return new PDO(Config::getDatabaseDsn(), Config::getDatabaseUser(), Config::getDatabasePassword());
+		return new \PDO(Config::getDatabaseDsn(), Config::getDatabaseUser(), Config::getDatabasePassword());
 	}
 }

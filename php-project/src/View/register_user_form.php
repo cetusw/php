@@ -34,8 +34,8 @@
 		<input name="phone" id="phone" type="text">
 	</div>
 	<div>
-		<label for="avatar_path">Avatar path:</label>
-		<input name="avatar_path" id="avatar_path" type="text">
+		<label for="avatar_path">Avatar:</label>
+		<input name="avatar_path" id="avatar_path" type="file" accept=".png .jpeg .gif">
 	</div>
 	<button type="submit">Submit</button>
 </form>
