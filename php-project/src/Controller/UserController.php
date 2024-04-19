@@ -68,6 +68,7 @@ class UserController
 				return $newFileName;
 			} else {
 				echo "Ошибка при загрузке файла";
+
 				exit;
 			}
 		}
