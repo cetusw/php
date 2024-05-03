@@ -6,6 +6,7 @@ use App\Infrastructure\ConnectionProvider;
 use App\Infrastructure\Utils;
 use App\Model\User;
 use App\Model\UserTable;
+use http\Exception\RuntimeException;
 
 class UserController
 {
@@ -51,7 +52,7 @@ class UserController
 	{
 		$user = $this->table->findUserInDatabase($id);
 		if ($user === null) {
-			require __DIR__ . '/../View/user_not_found.php';
+			throw new \RuntimeException('User Not Found');
 		} else {
 			require __DIR__ . '/../View/show_user_form.php';
 		}

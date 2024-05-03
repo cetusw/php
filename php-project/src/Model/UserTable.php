@@ -67,4 +67,12 @@ class UserTable
     $statement = $this->connection->prepare($query);
 		$statement->execute();
 	}
+
+	public function deleteUser(int $id): void
+	{
+
+    $query = "DELETE FROM user WHERE user_id = $id;";
+		$statement = $this->connection->prepare($query);
+		$statement->execute();
+	}
 }

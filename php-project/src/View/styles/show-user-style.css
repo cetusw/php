@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.preview {
+    background-color: rgba(247, 247, 247, 1);
+    width: 500px;
+    margin: 100px auto 100px auto;
+    padding: 20px 20px 20px 20px;
+    border-radius: 25px;
+}
+
+.preview__header {
+    margin: 0 0 10px 0;
+}
+
+p {
+    margin: 0 0 5px 0;
+}
+
+.preview__avatar {
+    height: 500px;
+    width: 500px;
+}
