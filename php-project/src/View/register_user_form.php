@@ -4,7 +4,7 @@
 	<title>Register user</title>
 </head>
 <body>
-<form action="/register_user.php" method="post">
+<form action="/register_user.php" method="post" enctype="multipart/form-data">
 	<div>
 		<label for="first_name">First name:</label>
 		<input name="first_name" id="first_name" type="text">
@@ -35,7 +35,7 @@
 	</div>
 	<div>
 		<label for="avatar_path">Avatar:</label>
-		<input name="avatar_path" id="avatar_path" type="file" accept=".png .jpeg .gif">
+		<input name="avatar_path" id="avatar_path" type="file" accept="image/png, image/jpeg, image/gif"/>
 	</div>
 	<button type="submit">Submit</button>
 </form>

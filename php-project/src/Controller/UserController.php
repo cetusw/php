@@ -50,27 +50,28 @@ class UserController
 	public function showUser(int $id): void
 	{
 		$user = $this->table->findUserInDatabase($id);
-		require __DIR__ . '/../View/show_user_form.php';
+		if ($user === null) {
+			require __DIR__ . '/../View/user_not_found.php';
+		} else {
+			require __DIR__ . '/../View/show_user_form.php';
+		}
 	}
 
 	public function saveAvatar($id): string
 	{
-		if ($_FILES['upfile']['error'] == 0) {
-			$fileName = $_FILES['upfile']['name'];
-			$fileType = $_FILES['upfile']['type'];
+		if ($_FILES['avatar_path']['error'] == 0) {
+			$fileName = $_FILES['avatar_path']['name'];
+			$fileType = $_FILES['avatar_path']['type'];
 			if (!in_array($fileType, ['image/jpeg', 'image/png', 'image/gif'])) {
-				echo "Недопустимый тип файла";
-				exit;
+				throw new \RuntimeException('Wrong file type');
 			}
 			$newFileName = $id . "." . pathinfo($fileName, PATHINFO_EXTENSION);
-			if (move_uploaded_file($fileName, "uploads/" . $newFileName)) {
-				echo "Файл успешно загружен";
-				return $newFileName;
-			} else {
-				echo "Ошибка при загрузке файла";
-
-				exit;
+			$newPath = './uploads/' . $newFileName;
+			echo $newPath;
+			if (!move_uploaded_file($_FILES['avatar_path']['tmp_name'], $newPath)) {
+				throw new \RuntimeException('Failed to move uploaded file');
 			}
+			$this->table->addPathToDatabase($id, $newPath);
 		}
 		return false;
 	}

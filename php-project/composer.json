@@ -11,5 +11,8 @@
             "email": "kugelev.m@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.1.12",
+        "ext-PDO": "^8.0"
+    }
 }

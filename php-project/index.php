@@ -4,9 +4,12 @@ use App\Controller\UserController;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$controller = new UserController();
-$controller->index();
-
+try {
+	$controller = new UserController();
+	$controller->index();
+} catch (Exception $e) {
+	echo $e->getMessage();
+}
 /*require_once __DIR__ . '/src/Infrastructure/ConnectionProvider.php';
 require_once __DIR__ . '/src/Model/User.php';
 require_once __DIR__ . '/src/Model/UserTable.php';

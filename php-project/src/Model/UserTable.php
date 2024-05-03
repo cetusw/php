@@ -39,8 +39,7 @@ class UserTable
         FROM user WHERE user_id = $id";
 
 			$statement = $this->connection->query($query);
-			if ($row = $statement->fetch(\PDO::FETCH_ASSOC))
-			{
+			if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
 				return $this->createUserFromRow($row);
 			}
 		} catch (\PDOException $e) {
@@ -62,5 +61,10 @@ class UserTable
 			$row['phone'] ?? null,
 			$row['avatar_path'] ?? null
 		);
+	}
+  public function addPathToDatabase($userId, string $path): void {
+		$query = "UPDATE user SET avatar_path = '$path' WHERE user_id = $userId;";
+    $statement = $this->connection->prepare($query);
+		$statement->execute();
 	}
 }
