@@ -94,13 +94,29 @@ class UserTable
 		}
 	}
 
-	public function updateUserInDatabase($id, $user): void
+	public function updateUserInDatabase(User $user): void
 	{
 		$query = "UPDATE user SET
-              first_name = $user->getFirstName(), 
-              last_name = $user->getFirstName()
-              WHERE user_id = $id;";
+              first_name = :first_name, 
+              last_name = :last_name,
+              middle_name = :middle_name,
+              gender = :gender,
+              birth_date = :birth_date,
+              email = :email,
+              phone = :phone,
+              avatar_path = :avatar_path  
+              WHERE user_id = :user_id";
 		$statement = $this->connection->prepare($query);
-		$statement->execute();
+		$statement->execute([
+			':first_name' => $user->getFirstName(),
+			':last_name' => $user->getLastName(),
+			':middle_name' => $user->getMiddleName(),
+			':gender' => $user->getGender(),
+			':birth_date' => Utils::convertDataTimeToString($user->getBirthDate()),
+			':email' => $user->getEmail(),
+			':phone' => $user->getPhone(),
+			':avatar_path' => $user->getAvatarPath(),
+			':user_id' => $user->getId()
+		]);
 	}
 }

@@ -1,5 +1,8 @@
 <?php
-  require_once __DIR__ . '/../Infrastructure/Utils.php';
+
+use App\Infrastructure\Utils;
+
+require_once __DIR__ . '/../Infrastructure/Utils.php';
 
 ?>
 
@@ -18,6 +21,9 @@
 		<a href="show_user.php?user_id=<?= $user->getId() ?>"><?= htmlentities($user->getFirstName()) ?></a>
 		<p><?= htmlentities($user->getLastName()) ?></p>
 		<img class="preview__avatar" src="<?= $user->getAvatarPath() ?>" alt="Avatar Image">
+    <form action="update_user_page.php?user_id=<?= $user->getId() ?>&first_name=<?= $user->getFirstName() ?>&last_name=<?= $user->getLastName() ?>&middle_name=<?= $user->getMiddleName() ?>&gender=<?= $user->getGender() ?>&birth_date=<?= Utils::convertDataTimeToString($user->getBirthDate()) ?>&email=<?= $user->getEmail() ?>&phone=<?= $user->getPhone() ?>&avatar_path=<?= $user->getAvatarPath() ?>" method="post">
+      <button class="btn btn-primary" type="submit">Update</button>
+    </form>
 		<form action="delete_user.php?user_id=<?= $user->getId() ?>" method="post">
 			<button class="btn btn-primary" type="submit">Delete User</button>
 		</form>

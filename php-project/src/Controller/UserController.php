@@ -90,22 +90,23 @@ class UserController
 		return true;
 	}
 
-	public function updateUser(int $id, array $data): void
+	public function updateUser($userId, $newData): void
 	{
-		$birthDate = Utils::parseDateTime($data['birth_date'], self::DATE_TIME_FORMAT);
-		$birthDate = $birthDate->setTime(0, 0, 0);
-		$user = new User(
-			null,
-			$data['first_name'],
-			$data['last_name'],
-			empty($data['middle_name']) ? null : $data['middle_name'],
-			$data['gender'],
-			$birthDate,
-			$data['email'],
-			empty($data['phone']) ? null : $data['phone'],
-			empty($data['avatar_path']) ? null : $data['avatar_path']
-		);
+		var_dump($_POST);
+		$user = $this->table->findUserInDatabase($userId);
+		$user->setFirstName($newData['first_name']);
+		$user->setLastName($newData['last_name']);
+		$user->setGender($newData['gender']);
+		$birthDate = Utils::parseDateTime($newData['birth_date'], self::DATE_TIME_FORMAT);
+		$user->setBirthDate($birthDate);
+		$user->setEmail($newData['email']);
+		$user->setPhone($newData['phone']);
+		$user->setAvatarPath($newData['avatar_path']);
+		$this->saveAvatar($userId);
 
-		$this->table->updateUserInDatabase($id, $user);
+		$this->table->updateUserInDatabase($user);
+		$redirectUrl = "/show_users_list.php";
+		header('Location: ' . $redirectUrl, true, 303);
+		die();
 	}
 }
