@@ -1,3 +1,9 @@
+<?php
+
+use App\Infrastructure\Config;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +14,7 @@
 </head>
 <body>
 <div class="form">
+  <h1 class="form__title">Registration</h1>
   <form action="/register_user.php" method="post" enctype="multipart/form-data">
     <div class="form-group first-name">
       <label for="first_name">First name:</label>
@@ -42,6 +49,9 @@
       <input name="avatar_path" id="avatar_path" type="file" accept="image/png, image/jpeg, image/gif"/>
     </div>
     <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+  <form action="/show_users_list.php">
+    <button class="btn btn-primary" type="submit">Show Users List</button>
   </form>
 </div>
 </body>

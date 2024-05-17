@@ -48,6 +48,22 @@ class UserTable
 		return null;
 	}
 
+	public function findUsersInDatabase(): array
+	{
+		try {
+			$users = [];
+			$query = "SELECT * FROM user";
+
+			$statement = $this->connection->query($query);
+			while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+				$users[] = $this->createUserFromRow($row);
+			}
+			return $users;
+		} catch (\PDOException $e) {
+			throw new \RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
+		}
+	}
+
 	private function createUserFromRow(array $row): User
 	{
 		return new User(
@@ -72,6 +88,18 @@ class UserTable
 	{
 
     $query = "DELETE FROM user WHERE user_id = $id;";
+		$statement = $this->connection->prepare($query);
+		if ($statement->execute()) {
+			require __DIR__ . '/../View/delete_user_notification.php';
+		}
+	}
+
+	public function updateUserInDatabase($id, $user): void
+	{
+		$query = "UPDATE user SET
+              first_name = $user->getFirstName(), 
+              last_name = $user->getFirstName()
+              WHERE user_id = $id;";
 		$statement = $this->connection->prepare($query);
 		$statement->execute();
 	}

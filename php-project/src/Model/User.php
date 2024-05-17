@@ -62,4 +62,44 @@ class User
 	{
 		return $this->avatarPath;
 	}
+
+	public function setFirstName(string $firstName): ?string
+	{
+    return $this->firstName = $firstName;
+	}
+
+	public function setLastName(string $lastName): ?string
+	{
+		return $this->lastName = $lastName;
+	}
+
+	public function setMiddleName(?string $middleName): ?string
+	{
+		return $this->middleName = $middleName;
+	}
+
+	public function setGender(string $gender): ?string
+	{
+		return $this->gender = $gender;
+	}
+
+	public function setBirthDate(\DateTimeImmutable $birthDate): \DateTimeImmutable
+	{
+		return $this->birthDate = $birthDate;
+	}
+
+	public function setEmail(string $email): ?string
+	{
+		return $this->email = $email;
+	}
+
+	public function setPhone(?string $phone): ?string
+	{
+		return $this->phone = $phone;
+	}
+
+	public function setAvatarPath(?string $avatarPath): ?string
+	{
+		return $this->avatarPath = $avatarPath;
+	}
 }

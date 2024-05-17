@@ -4,10 +4,17 @@
     text-decoration: none;
 }
 
+.user-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1500px;
+}
+
 .preview {
     background-color: rgba(247, 247, 247, 1);
-    width: 600px;
-    margin: 100px auto 100px auto;
+    width: 450px;
+    margin: 100px 25px 100px 25px;
     padding: 20px 20px 20px 20px;
     border-radius: 25px;
 }
@@ -21,8 +28,8 @@ p {
 }
 
 .preview__avatar {
-    height: 500px;
-    width: 500px;
+    height: 100px;
+    width: 100px;
 }
 
 .btn {

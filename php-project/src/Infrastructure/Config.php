@@ -16,4 +16,9 @@ class Config
 	{
     return 'pAssw0rd#';
 	}
+
+	public static function getValidTypes(): array
+	{
+		return ['image/jpeg', 'image/png', 'image/gif'];
+	}
 }
