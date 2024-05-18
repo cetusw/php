@@ -8,9 +8,6 @@
 <body>
 <div class="preview">
 	<h1>User has been deleted</h1>
-	<form action="/index.php" method="post">
-		<button class="btn btn-primary" type="submit">Registration</button>
-	</form>
   <form action="/show_users_list.php">
     <button class="btn btn-primary" type="submit">Show Users List</button>
   </form>

@@ -14,11 +14,11 @@ use App\Infrastructure\Config;
 </head>
 <body>
 <div class="form">
-	<h1 class="form__title">Update</h1>
+	<h1 class="form__title">Update User <?= $_GET['user_id'] ?></h1>
 	<form action="/update_user.php?user_id=<?= $_GET['user_id'] ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group first-name">
 			<label for="first_name">First name:</label>
-			<input name="first_name" id="first_name" type="text" value="<?= $_GET['first_name'] ?>">
+			<input name="first_name" id="first_name" type="text" value="">
 		</div>
 		<div class="form-group">
 			<label for="last_name">Last name:</label>

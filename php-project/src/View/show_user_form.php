@@ -21,12 +21,17 @@ require_once __DIR__ . '/../Infrastructure/Utils.php';
   <p>Email: <?= htmlentities($user->getEmail()) ?></p>
   <p>Phone: <?= htmlentities($user->getPhone()) ?></p>
   <p>Avatar:</p>
-  <img class="preview__avatar" src="<?= $user->getAvatarPath() ?>" alt="Avatar Image">
+  <?php if ($user->getAvatarPath() !== null) { ?>
+    <img class="preview__avatar" src="<?= $user->getAvatarPath() ?>" alt="Avatar Image">
+  <?php } ?>
+  <form action="update_user_page.php?user_id=<?= $user->getId() ?>" method="post">
+    <button class="btn btn-primary" type="submit">Update User</button>
+  </form>
   <form action="delete_user.php?user_id=<?= $user->getId() ?>" method="post">
     <button class="btn btn-primary" type="submit">Delete User</button>
   </form>
-  <form action="index.php" method="post">
-    <button class="btn btn-primary" type="submit">Registration</button>
+  <form action="/show_users_list.php">
+    <button class="btn btn-primary" type="submit">Show Users List</button>
   </form>
 </div>
 </body>

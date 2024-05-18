@@ -21,4 +21,9 @@ class Config
 	{
 		return ['image/jpeg', 'image/png', 'image/gif'];
 	}
+
+	public static function getValidExtensions(): array
+	{
+		return ['jpeg', 'png', 'gif'];
+	}
 }

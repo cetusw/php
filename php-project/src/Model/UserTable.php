@@ -32,11 +32,11 @@ class UserTable
 		return (int)$this->connection->lastInsertId();
 	}
 
-	public function findUserInDatabase(int $id): ?User
+	public function findUserInDatabase(int $userId): ?User
 	{
 		try {
 			$query = "SELECT user_id, first_name, last_name, middle_name, gender, birth_date, email, phone, avatar_path
-        FROM user WHERE user_id = $id";
+        FROM user WHERE user_id = $userId";
 
 			$statement = $this->connection->query($query);
 			if ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
@@ -84,10 +84,10 @@ class UserTable
 		$statement->execute();
 	}
 
-	public function deleteUser(int $id): void
+	public function deleteUser(int $userId): void
 	{
 
-    $query = "DELETE FROM user WHERE user_id = $id;";
+    $query = "DELETE FROM user WHERE user_id = $userId;";
 		$statement = $this->connection->prepare($query);
 		if ($statement->execute()) {
 			require __DIR__ . '/../View/delete_user_notification.php';

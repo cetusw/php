@@ -48,9 +48,9 @@ class UserController
 		die();
 	}
 
-	public function showUser(int $id): void
+	public function showUser(int $userId): void
 	{
-		$user = $this->table->findUserInDatabase($id);
+		$user = $this->table->findUserInDatabase($userId);
 		if ($user === null) {
 			throw new \RuntimeException('User Not Found');
 		} else {
@@ -68,45 +68,44 @@ class UserController
 		}
 	}
 
-	private function saveAvatar(int $id): bool
+	public function updateUser(int $userId, array $newData): void
 	{
-		$avatarPath = $_FILES['avatar_path'] ?? null;
-		if ($avatarPath === null || $avatarPath['error'] !== UPLOAD_ERR_OK) {
-			return false;
-		}
-
-		$fileName = $_FILES['avatar_path']['name'];
-		$fileType = mime_content_type($fileName);
-		if (!in_array($fileType, Config::getValidTypes())) {
-			echo '<script>alert("Invalid File Type");</script>';
-			exit();
-		}
-		$newFileName = $id . "." . pathinfo($fileName, PATHINFO_EXTENSION);
-		$newPath = './uploads/' . $newFileName;
-		if (!move_uploaded_file($_FILES['avatar_path']['tmp_name'], $newPath)) {
-			throw new \RuntimeException('Failed to move uploaded file');
-		}
-		$this->table->addPathToDatabase($id, $newPath);
-		return true;
-	}
-
-	public function updateUser($userId, $newData): void
-	{
-		var_dump($_POST);
 		$user = $this->table->findUserInDatabase($userId);
 		$user->setFirstName($newData['first_name']);
 		$user->setLastName($newData['last_name']);
 		$user->setGender($newData['gender']);
 		$birthDate = Utils::parseDateTime($newData['birth_date'], self::DATE_TIME_FORMAT);
 		$user->setBirthDate($birthDate);
-		$user->setEmail($newData['email']);
-		$user->setPhone($newData['phone']);
+		empty($newData['email']) ? $user->setEmail(null) : $user->setEmail($newData['email']);
+		empty($newData['phone']) ? $user->setPhone(null) : $user->setPhone($newData['phone']);
+		empty($newData['avatar_path']) ? $user->setAvatarPath(null) : $user->setAvatarPath($newData['avatar_path']);
 		$user->setAvatarPath($newData['avatar_path']);
-		$this->saveAvatar($userId);
 
 		$this->table->updateUserInDatabase($user);
-		$redirectUrl = "/show_users_list.php";
+		$this->saveAvatar($userId);
+
+		$redirectUrl = "/show_user.php?user_id=$userId";
 		header('Location: ' . $redirectUrl, true, 303);
 		die();
+	}
+
+	private function saveAvatar(int $userId): bool
+	{
+		$avatarPath = $_FILES['avatar_path'] ?? null;
+		if ($avatarPath === null || $avatarPath['error'] !== UPLOAD_ERR_OK) {
+			return false;
+		}
+		$fileName = $_FILES['avatar_path']['tmp_name'];
+		$fileType = mime_content_type($fileName);
+		if (!in_array($fileType, Config::getValidTypes())) {
+			throw new \RuntimeException('Invalid file type');
+		}
+		$newFileName = $userId . "." . pathinfo($fileName, PATHINFO_EXTENSION);
+		$newPath = './uploads/' . $newFileName;
+		if (!move_uploaded_file($_FILES['avatar_path']['tmp_name'], $newPath)) {
+			throw new \RuntimeException('Failed to move uploaded file');
+		}
+		$this->table->addPathToDatabase($userId, $newPath);
+		return true;
 	}
 }
